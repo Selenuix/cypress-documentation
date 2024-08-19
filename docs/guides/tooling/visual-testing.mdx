@@ -91,7 +91,7 @@ it('completes todo', () => {
 
   cy.contains('.todo-list li', 'write tests').should('have.class', 'completed')
 
-  // run 'npm i cypress-plugin-snapshots -S'
+  // run 'npm install cypress-plugin-snapshots --save'
   // capture the element screenshot and
   // compare to the baseline image
   cy.get('.todoapp').toMatchImageSnapshot({
@@ -122,33 +122,35 @@ mouse hover:
 
 ## Tooling
 
+{/* prettier-ignore */}
 There are several published, open source plugins, listed in the
-[Visual Testing plugins](/plugins#visual-testing) section, and several
-commercial companies have developed visual testing solutions on top of Cypress
-listed below.
+
+<a href="/plugins#visual-testing">Visual Testing Plugins</a> section, and several
+commercial companies have developed visual testing solutions on top of Cypress listed
+below.
 
 ### Open source
 
-Listed in the [Visual Testing plugins](/plugins#visual-testing) section.
+Listed in the <a href="/plugins#visual-testing">Visual Testing Plugins</a> section.
 
 ### Applitools
 
 First joint webinar with Applitools
 
-<!-- textlint-disable -->
+{/* textlint-disable */}
 
 <DocsVideo src="https://youtube.com/embed/qVRjhABuyG0" />
 
-<!-- textlint-enable -->
+{/* textlint-enable */}
 
 Second joint webinar with Applitools with a focus on
 [Component Testing](/guides/core-concepts/testing-types#What-is-Component-Testing)
 
-<!-- textlint-disable -->
+{/* textlint-disable */}
 
 <DocsVideo src="https://youtube.com/embed/Bxh_ebMk1aM" />
 
-<!-- textlint-enable -->
+{/* textlint-enable */}
 
 <Icon name="external-link-alt" url="https://applitools.com/" />
 
@@ -161,11 +163,11 @@ Second joint webinar with Applitools with a focus on
 
 ### Percy
 
-<!-- textlint-disable -->
+{/* textlint-disable */}
 
 <DocsVideo src="https://youtube.com/embed/MXfZeE9RQDw" />
 
-<!-- textlint-enable -->
+{/* textlint-enable */}
 
 <Icon name="external-link-alt" url="https://percy.io/" />
 
@@ -195,11 +197,11 @@ to see these Percy and Cypress in action.
 
 ### Happo
 
-<!-- textlint-disable -->
+{/* textlint-disable */}
 
 <DocsVideo src="https://youtube.com/embed/C_p12IvN5HU" />
 
-<!-- textlint-enable -->
+{/* textlint-enable */}
 
 <Icon name="external-link-alt" url="https://happo.io/" />
 
@@ -208,27 +210,33 @@ to see these Percy and Cypress in action.
 | [Official docs](https://docs.happo.io/docs/cypress)                                  | Happo's Cypress documentation                                                                                                               |
 | [Webinar](https://www.youtube.com/watch?v=C_p12IvN5HU)                               | _Keep your UI Sharp: Ensuring Functional and Visual Quality with Cypress.io + Happo.io_, a webinar recorded together with Cypress and Happo |
 | [Blog](https://www.cypress.io/blog/2020/05/27/webcast-recording-keep-your-ui-sharp/) | The companion blog for the Cypress + Happo webinar                                                                                          |
-| [Slides](https://cypress.slides.com/cypress-io/cypress-and-happo)                    | The companion slides for the Cypress + Happo webinar                                                                                        |
 
-### Do It Yourself
+### Chromatic
 
-Even if you decide to skip using a 3rd party image storage and comparison
-service, you can still perform visual testing. Follow these examples
+Chromatic leverages your existing Cypress setup—configuration, mocking, and tests—to enable visual testing of your application's UI. With the Chromatic plugin installed, Chromatic captures an archive of your UI while your Cypress tests are running.
 
-- [Visual Regression testing with Cypress and cypress-image-snapshot](https://medium.com/norwich-node-user-group/visual-regression-testing-with-cypress-io-and-cypress-image-snapshot-99c520ccc595)
-  tutorial.
-- [Visual testing for React components using open source tools](https://glebbahmutov.com/blog/open-source-visual-testing-of-components/)
-  with companion
-  [videos](https://www.youtube.com/playlist?list=PLP9o9QNnQuAYhotnIDEUQNXuvXL7ZmlyZ).
+{/* textlint-enable */}
 
-:::caution
+<Icon name="external-link-alt" url="https://chromatic.com" />
 
-You will want to consider the development costs of implementing a visual testing
-tool yourself versus using an external 3rd party provider. Storing, reviewing
-and analyzing image differences are non-trivial tasks and they can quickly
-become a chore when going with a DIY solution.
+| Resource                                                                                        | Description                                               |
+| ----------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [Official docs](https://www.chromatic.com/docs/cypress/setup/?utm_source=cypress_docs)          | Chromatic's Cypress documentation                         |
+| [Blog](https://www.chromatic.com/blog/how-to-visual-test-with-cypress/?utm_source=cypress_docs) | Chromatic’s Cypress integration announcement and tutorial |
 
-:::
+### Wopee.io
+
+[Wopee.io](https://wopee.io) seamlessly integrates with Cypress to enhance test coverage, expedite maintenance, and ensure more resilient test runs. Aiming for autonomous visual testing, Wopee.io allows you to easily incorporate visual validation into your existing Cypress tests, adding an extra layer of quality assurance.
+
+{/* textlint-enable */}
+
+<Icon name="external-link-alt" url="https://wopee.io" />
+
+| Resource                                                                                                | Description                                                                          |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [Official docs](https://docs.wopee.io/integrations/cypress/01-getting-started/?utm_source=cypress_docs) | Wopee.io's Cypress documentation                                                     |
+| [Blog](https://wopee.io/blog/autopilot-your-sw-testing/?utm_source=cypress_docs)                        | Wopee.io & Cypress integration and some AI-Augmentation ideas                        |
+| [Webinar](https://youtu.be/t008fYcBoi0)                                                                 | _Cypress + Wopee.io_, a webinar introducing integration between Cypress and Wopee.io |
 
 ## Best practices
 
@@ -236,8 +244,7 @@ As a general rule there are some best practices when visual testing.
 
 ### Recognize the need for visual testing
 
-**<Icon name="exclamation-triangle" color="red" /> Assertions that verify style
-properties**
+<Icon name="exclamation-triangle" color="red" /> Assertions that verify style properties**
 
 ```js
 cy.get('.completed').should('have.css', 'text-decoration', 'line-through')
@@ -254,14 +261,14 @@ verify the page appearance.
 
 :::tip
 
-&nbsp;<Icon name="check-circle" color="green" /> **Best Practice:** Take a
-snapshot after you confirm the page is done changing.
+<Icon name="check-circle" color="green" /> **Best Practice:** Take a snapshot after
+you confirm the page is done changing.
 
 :::
 
 For example, if the snapshot command is `cy.mySnapshotCommand`:
 
-**<Icon name="exclamation-triangle" color="red" /> Incorrect Usage**
+<Icon name="exclamation-triangle" color="red" /> **Incorrect Usage**
 
 ```js
 // the web application takes time to add the new item,
@@ -270,7 +277,7 @@ cy.get('.new-todo').type('write tests{enter}')
 cy.mySnapshotCommand()
 ```
 
-**<Icon name="check-circle" color="green" /> Correct Usage**
+<Icon name="check-circle" color="green" /> **Correct Usage**
 
 ```js
 // use a functional assertion to ensure
@@ -286,8 +293,8 @@ cy.mySnapshotCommand()
 
 :::tip
 
-&nbsp;<Icon name="check-circle" color="green" /> **Best Practice:** Control the
-timestamp inside the application under test.
+<Icon name="check-circle" color="green" /> **Best Practice:** Control the timestamp
+inside the application under test.
 
 :::
 
@@ -307,8 +314,8 @@ cy.mySnapshotCommand()
 
 :::tip
 
-&nbsp;<Icon name="check-circle" color="green" /> **Best Practice:** Use
-[cy.fixture()](/api/commands/fixture) and network mocking to set the application state.
+<Icon name="check-circle" color="green" /> **Best Practice:** Use [cy.fixture()](/api/commands/fixture)
+and network mocking to set the application state.
 
 :::
 
@@ -327,8 +334,8 @@ cy.mySnapshotCommand()
 
 :::tip
 
-&nbsp;<Icon name="check-circle" color="green" /> **Best Practice:** Use visual
-diffing to check individual DOM elements rather than the entire page.
+<Icon name="check-circle" color="green" /> **Best Practice:** Use visual diffing
+to check individual DOM elements rather than the entire page.
 
 :::
 
@@ -339,9 +346,9 @@ breaking tests in other unrelated components.
 
 :::tip
 
-&nbsp;<Icon name="check-circle" color="green" /> **Best Practice:** Use
-[Component Testing](/guides/component-testing/overview) to test the individual components
-functionality in addition to end-to-end and visual tests.
+<Icon name="check-circle" color="green" /> **Best Practice:** Use [Component Testing](/guides/component-testing/overview)
+to test the individual components functionality in addition to end-to-end and visual
+tests.
 
 :::
 
@@ -357,11 +364,11 @@ the
 - [cy.screenshot()](/api/commands/screenshot)
 - [Cypress.Screenshot](/api/cypress-api/screenshot-api)
 - [Plugins](/guides/tooling/plugins-guide)
-- [Visual Testing Plugins](/plugins#visual-testing)
+- <a href="/plugins#visual-testing">Visual Testing Plugins</a>
 - [Writing a Plugin](/api/plugins/writing-a-plugin)
-- &nbsp;<Icon name="github" contentType="rwa" /> is a full stack example
-  application that demonstrates **best practices and scalable strategies with
-  Cypress in practical and realistic scenarios**.
+- <Icon name="github" contentType="rwa" /> is a full stack example application that
+  demonstrates **best practices and scalable strategies with Cypress in practical
+  and realistic scenarios**.
 - Read the blog post
   [Debug a Flaky Visual Regression Test](https://www.cypress.io/blog/2020/10/02/debug-a-flaky-visual-regression-test/)
 - Read the blog post

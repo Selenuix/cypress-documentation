@@ -5,15 +5,19 @@ Thanks for taking the time to contribute! :smile:
 ## Table of Contents
 
 - [Contributing to Cypress Documentation](#contributing-to-cypress-documentation)
+  - [Table of Contents](#table-of-contents)
   - [Code of Conduct](#code-of-conduct)
   - [Writing Documentation](#writing-documentation)
-    - [Admonitions](#admonitions)
-    - [Images](#images)
-    - [Videos](#videos)
-    - [Icons](#icons)
+    - [VSCode MDX Extension](#vscode-mdx-extension)
+      - [Admonitions](#admonitions)
+      - [Images](#images)
+      - [Videos](#videos)
+      - [Icons](#icons)
     - [Partials](#partials)
     - [Adding Plugins](#adding-plugins)
     - [Adding Pages](#adding-pages)
+    - [Patches](#patches)
+      - [@docusaurus/mdx-loader patch](#docusaurusmdx-loader-patch)
     - [Writing the Changelog](#writing-the-changelog)
       - [Categories](#categories)
   - [Committing Code](#committing-code)
@@ -41,7 +45,7 @@ fork) of this repository under your personal account.
 **Clone your forked repository**
 
 ```shell
-git clone git@github.com:<your username>/cypress-documentation.git
+git clone https://github.com/<your username>/cypress-documentation.git
 cd cypress-documentation
 ```
 
@@ -137,12 +141,12 @@ Each plugin submitted to the plugins list should have the following:
 2. CI pipeline
 3. Compatibility with at least the latest major version of Cypress
 
-Plugins are listed in in the following order to for users:
+Plugins are listed in the following order:
 
-- official
-- verified
-- community
-- experimental
+- official (Cypress owned)
+- verified (community owned and verified by Cypress)
+- community (community owned and unverified)
+- deprecated (npm registry missing, source repo archived or incompatible with v10+)
 
 ### Adding Pages
 

@@ -10,7 +10,7 @@ chain further commands that rely on the subject after `.clear()`.
 
 :::info
 
-An alias for [`.type('{selectall}{backspace}')`](/api/commands/type)
+An alias for [`.type('{selectall}{del}')`](/api/commands/type)
 
 :::
 
@@ -23,7 +23,7 @@ An alias for [`.type('{selectall}{backspace}')`](/api/commands/type)
 
 ### Usage
 
-**<Icon name="check-circle" color="green" /> Correct Usage**
+<Icon name="check-circle" color="green" /> **Correct Usage**
 
 ```javascript
 cy.get('[type="text"]').clear() // Clear text input
@@ -31,7 +31,7 @@ cy.get('textarea').type('Hi!').clear() // Clear textarea
 cy.focused().clear() // Clear focused input/textarea
 ```
 
-**<Icon name="exclamation-triangle" color="red" /> Incorrect Usage**
+<Icon name="exclamation-triangle" color="red" /> **Incorrect Usage**
 
 ```javascript
 cy.clear() // Errors, cannot be chained off 'cy'
@@ -41,7 +41,7 @@ cy.clock().clear() // Errors, 'clock' does not yield DOM elements
 
 ### Arguments
 
-**<Icon name="angle-right" /> options** **_(Object)_**
+<Icon name="angle-right" /> **options _(Object)_**
 
 Pass in an options object to change the default behavior of `.clear()`.
 
@@ -82,7 +82,7 @@ cy.get('textarea').clear().type('Hello, World')
 ### Documentation
 
 `.clear()` is an alias for
-[`.type({selectall}{backspace})`](/api/commands/type).
+[`.type({selectall}{del})`](/api/commands/type).
 
 Please read the [`.type()`](/api/commands/type) documentation for more details.
 

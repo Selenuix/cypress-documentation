@@ -93,8 +93,8 @@ Learn more about action commands in our
 | [`.click()`](/api/commands/click)                   | Click a DOM element.                                                                     |
 | [`.dblclick()`](/api/commands/dblclick)             | Double-click a DOM element.                                                              |
 | [`.rightclick()`](/api/commands/rightclick)         | Right click a DOM element.                                                               |
-| [`.scrollIntoView()`](/api/commands/scrollintoview) | Scroll an element into view.                                                             |
-| [`.scrollTo()`](/api/commands/scrollto)             | Scroll to a specific position.                                                           |
+| [`.scrollIntoView()`](/api/commands/scrollIntoView) | Scroll an element into view.                                                             |
+| [`.scrollTo()`](/api/commands/scrollTo)             | Scroll to a specific position.                                                           |
 | [`.select()`](/api/commands/select)                 | Select an `<option>` within a `<select>`.                                                |
 | [`.selectFile()`](/api/commands/selectfile)         | Selects a file in an HTML5 input element, or simulates dragging a file into the browser. |
 | [`.trigger()`](/api/commands/trigger)               | Trigger an event on a DOM element.                                                       |
@@ -170,7 +170,8 @@ Cypress exposes interfaces to write
 details.
 
 The Cypress community has created a large number of
-[Command Plugins](/plugins#custom-commands) which you can install or download.
+
+<a href="/plugins#custom-commands">Command Plugins</a> which you can install or download.
 
 ### APIs
 
@@ -178,7 +179,7 @@ Cypress exposes a number of properties and methods on the global `Cypress`
 object.
 
 The _key_ difference between Cypress APIs and Cypress commands is that Cypress
-APIs execute the moment they are invoked and are **not** enqueue to run at a
+APIs execute the moment they are invoked and are **not** enqueued to run at a
 later time.
 
 | Property                                                                 | Usage                                                                                                                          |
@@ -197,6 +198,7 @@ later time.
 | [`Cypress.isCy()`](/api/cypress-api/iscy)                                | checks if a variable is a valid instance of cy or a cy chainable.                                                              |
 | [`Cypress.Keyboard.defaults()`](/api/cypress-api/keyboard-api)           | Set default values for how the `.type()` command is executed.                                                                  |
 | [`Cypress.platform`](/api/cypress-api/platform)                          | The underlaying OS name, as returned by Node's `os.platform()`.                                                                |
+| [`Cypress.require`](/api/cypress-api/require)                            | Enables utilizing dependencies within the [cy.origin()](/api/commands/origin) callback function.                               |
 | [`Cypress.Screenshot.defaults()`](/api/cypress-api/screenshot-api)       | Set defaults for screenshots captured by the `.screenshot()` command and the automatic screenshots taken during test failures. |
 | [`Cypress.SelectorPlayground`](/api/cypress-api/selector-playground-api) | Configure options used by the [Selector Playground](/guides/core-concepts/cypress-app#Selector-Playground).                    |
 | [`Cypress.session`](/api/cypress-api/session)                            | A collection of helper methods related to the `.session()` command.                                                            |

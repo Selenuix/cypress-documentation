@@ -232,7 +232,7 @@ locally but fail in CI.
   data from that network request. You can leverage
   [aliasing](/guides/core-concepts/variables-and-aliases#Aliases) for this.
 
-Cypress Cloud also offers [Analytics](/guides/cloud/analytics) that illustrate
+Cypress Cloud also offers [Analytics](/guides/cloud/analytics/overview) that illustrate
 trends in your tests and can help identify the tests that fail most often. This
 could help narrow down what is causing the flake -- for example, seeing
 increased failures after a change to the test environment could indicate issues
@@ -252,24 +252,6 @@ Cypress emits multiple events you can listen to as shown below.
   src="/img/api/catalog-of-events/console-log-events-debug.png"
   alt="console log events for debugging"
 />
-
-## Run Cypress command outside the test
-
-If you need to run a Cypress command straight from the Developer Tools console,
-you can use the internal command `cy.now('command name', ...arguments)`. For
-example, to run the equivalent of `cy.task('database', 123)` outside the normal
-execution command chain:
-
-```javascript
-cy.now('task', 'database', 123).then(console.log)
-// runs cy.task('database', 123) and prints the resolved value
-```
-
-:::caution
-
-The `cy.now()` command is an internal command and may change in the future.
-
-:::
 
 ## Troubleshooting Cypress
 

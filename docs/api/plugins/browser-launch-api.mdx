@@ -21,7 +21,7 @@ on('before:browser:launch', (browser = {}, launchOptions) => {
 
 :::
 
-**<Icon name="angle-right" /> browser** **_(object)_**
+<Icon name="angle-right" /> **browser _(object)_**
 
 An object describing the browser being launched, with the following properties:
 
@@ -38,7 +38,7 @@ An object describing the browser being launched, with the following properties:
 | `isHeadless`   | `boolean` | Whether the browser is running headlessly.                                                  |
 | `isHeaded`     | `boolean` | Whether the browser displays headed.                                                        |
 
-**<Icon name="angle-right" /> launchOptions** **_(object)_**
+<Icon name="angle-right" /> **launchOptions _(object)_**
 
 Options that can be modified to control how the browser is launched, with the
 following properties:
@@ -150,6 +150,12 @@ Here are preferences available for the currently supported browsers:
 - [Electron](https://github.com/electron/electron/blob/master/docs/api/browser-window.md#new-browserwindowoptions)
 - Firefox: visit `about:config` URL within your Firefox browser to see all
   available preferences.
+
+:::info
+
+If you want to ignore Chrome preferences altogether, you can set `IGNORE_CHROME_PREFERENCES` as an environment variable when running Cypress.
+
+:::
 
 :::cypress-config-plugin-example
 
@@ -366,9 +372,8 @@ on('before:browser:launch', (browser, options) => {
     const myMimeType = 'my/mimetype'
 
     // prevents the browser download prompt
-    options.preferences[
-      'browser.helperApps.neverAsk.saveToDisk'
-    ] = `${existingMimeTypes},${myMimeType}`
+    options.preferences['browser.helperApps.neverAsk.saveToDisk'] =
+      `${existingMimeTypes},${myMimeType}`
 
     return options
   }

@@ -22,6 +22,75 @@ all of the commands in this document from your **project root**.
 
 ## How to run commands
 
+You can run Cypress from your **project root** using a command which
+depends on the package manager you are using: npm, Yarn or pnpm.
+For example, you would prefix the command
+[cypress run](#cypress-run) as shown:
+
+<Tabs groupId="package-manager"
+  defaultValue="npm"
+  values={[
+    {label: 'npm', value: 'npm'},
+    {label: 'Yarn', value: 'yarn'},
+    {label: 'pnpm', value: 'pnpm'},
+  ]}>
+  <TabItem value="npm">
+
+```shell
+npx cypress run
+```
+
+  </TabItem>
+  <TabItem value="yarn">
+
+```shell
+yarn cypress run
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm cypress run
+```
+
+  </TabItem>
+</Tabs>
+
+Add any required [options](#Options) to the end of the command line.
+As an example, if you want to run tests in headless mode from a single spec file
+and record the results with Cypress Cloud, the command should be:
+
+<Tabs groupId="package-manager"
+  defaultValue="npm"
+  values={[
+    {label: 'npm', value: 'npm'},
+    {label: 'Yarn', value: 'yarn'},
+    {label: 'pnpm', value: 'pnpm'},
+  ]}>
+  <TabItem value="npm">
+
+```shell
+npx cypress run --record --spec "cypress/e2e/my-spec.cy.js"
+```
+
+  </TabItem>
+  <TabItem value="yarn">
+
+```shell
+yarn cypress run --record --spec "cypress/e2e/my-spec.cy.js"
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm cypress run --record --spec "cypress/e2e/my-spec.cy.js"
+```
+
+  </TabItem>
+</Tabs>
+
 :::info
 
 You can alternatively require and run Cypress as a node module using our
@@ -29,60 +98,128 @@ You can alternatively require and run Cypress as a node module using our
 
 :::
 
-For brevity we've omitted the full path to the cypress executable in each
-command's documentation.
+## Using scripts
 
-To run a command, you'll need to prefix each command in order to properly locate
-the cypress executable.
+Cypress command strings can be saved as scripts for reuse.
 
-```
-npx cypress run
-```
-
-...or by using Yarn...
-
-```
-yarn cypress run
-```
-
-You may find it easier to add the cypress command to the `scripts` object in
-your `package.json` file and call it from an
-[`npm run` script](https://docs.npmjs.com/cli/run-script.html).
-
-When calling a command using `npm run`, you need to pass the command's arguments
-using the `--` string. For example, if you have the following command defined in
-your `package.json`
+Let's say you often need to run Cypress E2E tests in headless mode using the Chrome browser.
+You can add the corresponding command
+`cypress run --browser chrome` to the `scripts` object in
+your `package.json` file and use the name
+`e2e:chrome` to identify it.
 
 ```json
 {
   "scripts": {
-    "cy:run": "cypress run"
+    "e2e:chrome": "cypress run --browser chrome"
   }
 }
 ```
 
-...and want to run tests from a single spec file and record the results with
-Cypress Cloud, the command should be:
+Running the script `e2e:chrome` as follows will run the command you defined:
+
+<Tabs groupId="package-manager"
+  defaultValue="npm"
+  values={[
+    {label: 'npm', value: 'npm'},
+    {label: 'Yarn', value: 'yarn'},
+    {label: 'pnpm', value: 'pnpm'},
+  ]}>
+  <TabItem value="npm">
 
 ```shell
-npm run cy:run -- --record --spec "cypress/e2e/my-spec.cy.js"
+npm run e2e:chrome
 ```
 
-You can also invoke the
-locally installed Cypress tool directly:
+  </TabItem>
+  <TabItem value="yarn">
 
 ```shell
-npx cypress run --record --spec "cypress/e2e/my-spec.cy.js"
+yarn e2e:chrome
 ```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm e2e:chrome
+```
+
+  </TabItem>
+</Tabs>
+
+:::caution
+
+<strong>Best Practice</strong>
+
+Don't use `cypress` as the exact name of a script, especially if you use Yarn as package manager.
+When running commands on the Cypress binary (e.g. `yarn cypress verify`), Yarn will reference the
+script of the same name instead and Cypress CLI commands may not work as expected.
+
+:::
+
+### Extending script options
+
+You do not have to define a new script for every variation of a command string you need. You can extend a script with additional options.
+
+Let's say that when you ran the full set of tests with the script `e2e:chrome` it showed a failure in one test spec `cypress/e2e/my-spec.cy.js`.
+You corrected the problem and would like to re-run the tests only for the test spec which previously failed.
+
+The option [`--spec`](#cypress-run-spec-lt-spec-gt) allows you to specify which test specs to run, so you can add this to the command after the script name `e2e:chrome`:
+
+<Tabs groupId="package-manager"
+  defaultValue="npm"
+  values={[
+    {label: 'npm', value: 'npm'},
+    {label: 'Yarn', value: 'yarn'},
+    {label: 'pnpm', value: 'pnpm'},
+  ]}>
+  <TabItem value="npm">
+
+```shell
+npm run e2e:chrome -- --spec "cypress/e2e/my-spec.cy.js"
+```
+
+  </TabItem>
+  <TabItem value="yarn">
+
+```shell
+yarn e2e:chrome --spec "cypress/e2e/my-spec.cy.js"
+```
+
+  </TabItem>
+  <TabItem value="pnpm">
+
+```shell
+pnpm e2e:chrome --spec "cypress/e2e/my-spec.cy.js"
+```
+
+  </TabItem>
+</Tabs>
+
+Refer to each package manager's documentation for full details of command and script usage:
+
+- [npm CLI](https://docs.npmjs.com/cli/)<br />
+  When adding Cypress [options](#Options) after a script name called from `npm`, you need to pass the command's arguments using the `--` string (see
+  [`npm-run-script`](https://docs.npmjs.com/cli/run-script.html)).
+- [Yarn CLI](https://classic.yarnpkg.com/lang/en/docs/cli/)
+- [pnpm CLI](https://pnpm.io/pnpm-cli)
 
 :::info
 
-Read how we typically organize and execute npm scripts in the blog post
-[How I Organize my npm Scripts](https://glebbahmutov.com/blog/organize-npm-scripts/).
+Read an example of organizing and executing npm scripts in the blog post
+[How I Organize my NPM Scripts](https://glebbahmutov.com/blog/organize-npm-scripts/).
 
 :::
 
 ## Commands
+
+:::info
+
+The prefix required to run `cypress` is not shown in the list of commands below.
+You need to add the prefix `npx`, `yarn` or `pnpm` to the command line, corresponding to the package manager you are using. See [How to run commands](#How-to-run-commands).
+
+:::
 
 ### `cypress run`
 
@@ -107,10 +244,11 @@ cypress run [options]
 | `--env`, `-e`                  | [Specify environment variables](#cypress-run-env-lt-env-gt)                                                                                                                                   |
 | `--group`                      | [Group recorded tests together under a single run](#cypress-run-group-lt-name-gt)                                                                                                             |
 | `--headed`                     | [Displays the browser instead of running headlessly](#cypress-run-headed)                                                                                                                     |
-| `--headless`                   | [Hide the browser instead of running headed (default during `cypress run`)](#cypress-run-headless)                                                                                            |
+| `--headless`                   | Hide the browser instead of running headed (default during `cypress run`)                                                                                                                     |
 | `--help`, `-h`                 | Output usage information                                                                                                                                                                      |
 | `--key`, `-k`                  | [Specify your secret record key](#cypress-run-record-key-lt-record-key-gt)                                                                                                                    |
 | `--no-exit`                    | [Keep Cypress open after tests in a spec file run](#cypress-run-no-exit)                                                                                                                      |
+| `--no-runner-ui`               | [Hides the Cypress Runner UI](#cypress-run-no-runner-ui)                                                                                                                                      |
 | `--parallel`                   | [Run recorded specs in parallel across multiple machines](#cypress-run-parallel)                                                                                                              |
 | `--port`,`-p`                  | [Override default port](#cypress-run-port-lt-port-gt)                                                                                                                                         |
 | `--project`, `-P`              | [Path to a specific project](#cypress-run-project-lt-project-path-gt)                                                                                                                         |
@@ -118,6 +256,7 @@ cypress run [options]
 | `--record`                     | [Whether to record the test run](#cypress-run-record-key-lt-record-key-gt)                                                                                                                    |
 | `--reporter`, `-r`             | [Specify a Mocha reporter](#cypress-run-reporter-lt-reporter-gt)                                                                                                                              |
 | `--reporter-options`, `-o`     | [Specify Mocha reporter options](#cypress-run-reporter-lt-reporter-gt)                                                                                                                        |
+| `--runner-ui`                  | [Displays the Cypress Runner UI. Useful for when Test Replay is enabled and you would still like the Cypress Runner UI to be displayed for screenshots and video](#cypress-run-runner-ui)     |
 | `--spec`, `-s`                 | [Specify the spec files to run](#cypress-run-spec-lt-spec-gt)                                                                                                                                 |
 | `--tag`, `-t`                  | [Identify a run with a tag or tags](#cypress-run-tag-lt-tag-gt)                                                                                                                               |
 
@@ -129,14 +268,14 @@ The "autoCancelAfterFailures" argument is the number of times tests can fail
 before the run is canceled
 
 ```bash
-npx cypress run --record --key <<your_record_key>> --auto-cancel-after-failures 1
+cypress run --record --key <<your_record_key>> --auto-cancel-after-failures 1
 ```
 
 You can also specify `false` for the value to disable Auto Cancellation for the
 run:
 
 ```bash
-npx cypress run --record --key <<your_record_key>> --auto-cancel-after-failures false
+cypress run --record --key <<your_record_key>> --auto-cancel-after-failures false
 ```
 
 #### `cypress run --browser <browser-name-or-path>` {#cypress-run-browser-lt-browser-name-or-path-gt}
@@ -299,6 +438,15 @@ access to **developer tools** after a `spec` has run.
 cypress run --headed --no-exit
 ```
 
+#### `cypress run --no-runner-ui` {#cypress-run-no-runner-ui}
+
+To prevent Cypress from rendering the Runner UI, use
+`--no-runner-ui`.
+
+```shell
+cypress run --no-runner-ui
+```
+
 #### `cypress run --parallel` {#cypress-run-parallel}
 
 Run recorded specs in
@@ -383,10 +531,20 @@ You can specify reporter options using the
 cypress run --reporter junit --reporter-options mochaFile=result.xml,toConsole=true
 ```
 
+#### `cypress run --runner-ui` {#cypress-run-runner-ui}
+
+To force Cypress to render the Runner UI, use `--runner-ui`.
+
+```shell
+cypress run --runner-ui
+```
+
+Useful for when [Test Replay](/guides/cloud/test-replay) is enabled and you would still like the Runner UI to be rendered for screenshots and video.
+
 #### `cypress run --spec <spec>` {#cypress-run-spec-lt-spec-gt}
 
 Run tests specifying a single test file to run instead of all tests. The spec
-path should be an absolute path or can relative to the current working
+path should be an absolute path or can be relative to the current working
 directory.
 
 ```shell
@@ -417,15 +575,15 @@ app/
     unit/
     e2e/
       cypress/
-        integration/
-          spec.js
+        e2e/
+          spec.cy.js
       cypress.config.js
 ```
 
 If we are in the `app` folder, we can run the specs using the following command
 
 ```shell
-cypress run --project tests/e2e --spec ./tests/e2e/cypress/e2e/spec.js
+cypress run --project tests/e2e --spec ./tests/e2e/cypress/e2e/spec.cy.js
 ```
 
 #### `cypress run --tag <tag>` {#cypress-run-tag-lt-tag-gt}
@@ -446,7 +604,7 @@ cypress run --record --tag "production,nightly"
 Cypress Cloud will display any tags sent with the appropriate run.
 
 <DocsImage
-  src="/img/dashboard/dashboard-run-with-tags.png"
+  src="/img/guides/cloud/runs/dashboard-run-with-tags.png"
   alt="Cypress run in Cypress Cloud displaying flags"
 />
 
@@ -518,19 +676,19 @@ By passing `--browser` and `--e2e` or `--component` when launching a project,
 you can open Cypress and launch the browser at the same time. Otherwise, you
 will be guided through selecting a browser, project, and/or testing type.
 
-| Option                | Description                                                                                                                   |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `--browser`, `-b`     | [Path to a custom browser to be added to the list of available browsers in Cypress](#cypress-open-browser-lt-browser-path-gt) |
-| `--component`         | [Run component tests](/guides/core-concepts/testing-types#What-is-Component-Testing)                                          |
-| `--config`, `-c`      | [Specify configuration](#cypress-open-config-lt-config-gt)                                                                    |
-| `--config-file`, `-C` | [Specify configuration file](#cypress-open-config-file-lt-configuration-file-gt)                                              |
-| `--detached`, `-d`    | Open Cypress in detached mode                                                                                                 |
-| `--e2e`               | Run end to end tests (default)                                                                                                |
-| `--env`, `-e`         | [Specify environment variables](#cypress-open-env-lt-env-gt)                                                                  |
-| `--global`            | [Run in global mode](#cypress-open-global)                                                                                    |
-| `--help`, `-h`        | Output usage information                                                                                                      |
-| `--port`, `-p`        | [Override default port](#cypress-open-port-lt-port-gt)                                                                        |
-| `--project`, `-P`     | [Path to a specific project](#cypress-open-project-lt-project-path-gt)                                                        |
+| Option                | Description                                                                                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--browser`, `-b`     | [Run Cypress in the browser with the given name. If a filesystem path is supplied, Cypress will attempt to use the browser at that path.](#cypress-open-browser-lt-browser-path-gt) |
+| `--component`         | [Open in component testing mode](/guides/core-concepts/testing-types#What-is-Component-Testing)                                                                                     |
+| `--config`, `-c`      | [Specify configuration](#cypress-open-config-lt-config-gt)                                                                                                                          |
+| `--config-file`, `-C` | [Specify configuration file](#cypress-open-config-file-lt-configuration-file-gt)                                                                                                    |
+| `--detached`, `-d`    | Open Cypress in detached mode                                                                                                                                                       |
+| `--e2e`               | Open in end to end testing mode (default)                                                                                                                                           |
+| `--env`, `-e`         | [Specify environment variables](#cypress-open-env-lt-env-gt)                                                                                                                        |
+| `--global`            | [Open in global mode](#cypress-open-global)                                                                                                                                         |
+| `--help`, `-h`        | Output usage information                                                                                                                                                            |
+| `--port`, `-p`        | [Override default port](#cypress-open-port-lt-port-gt)                                                                                                                              |
+| `--project`, `-P`     | [Path to a specific project](#cypress-open-project-lt-project-path-gt)                                                                                                              |
 
 #### `cypress open --browser <browser-path>` {#cypress-open-browser-lt-browser-path-gt}
 
@@ -643,7 +801,7 @@ Prints information about Cypress and the current environment such as:
 - Operating system information.
 - System memory including free space.
 
-<!-- hack: using css language label to respect decimals in syntax highlightng -->
+{/* hack: using css language label to respect decimals in syntax highlightng */}
 
 ```css
 cypress info
@@ -720,7 +878,7 @@ In most cases the binary and the package versions will be the same, but they
 could be different if you have installed a different version of the package and
 for some reason failed to install the matching binary version.
 
-<!-- hack: using css language label to respect decimals in syntax highlightng -->
+{/* hack: using css language label to respect decimals in syntax highlightng */}
 
 ```css
 cypress version
@@ -732,7 +890,7 @@ Bundled Node version: 16.16.0
 
 You can print each individual component's version number also.
 
-<!-- hack: using css language label to respect decimals in syntax highlightng -->
+{/* hack: using css language label to respect decimals in syntax highlightng */}
 
 ```css
 cypress version --component package
@@ -767,7 +925,7 @@ Print all existing installed versions of Cypress. The output will be a table
 with cached versions and the last time the binary was used by the user,
 determined from the file's access time.
 
-<!-- hack: using css language label to respect decimals in syntax highlightng -->
+{/* hack: using css language label to respect decimals in syntax highlightng */}
 
 ```css
 cypress cache list
@@ -784,7 +942,7 @@ You can calculate the size of every Cypress version folder by adding the
 `--size` argument to the command. Note that calculating the disk size can be
 slow.
 
-<!-- hack: using css language label to respect decimals in syntax highlightng -->
+{/* hack: using css language label to respect decimals in syntax highlightng */}
 
 ```css
 cypress cache list --size
